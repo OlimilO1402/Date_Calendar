@@ -1,5 +1,5 @@
 # Date_Calendar  
-## Shows your personal calendar  
+## This is your personal calendar  
 
 [![GitHub](https://img.shields.io/github/license/OlimilO1402/Date_Calendar?style=plastic)](https://github.com/OlimilO1402/Date_Calendar/blob/master/LICENSE) 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/OlimilO1402/Date_Calendar?style=plastic)](https://github.com/OlimilO1402/Date_Calendar/releases/latest)
