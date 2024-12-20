@@ -3,7 +3,7 @@
 
 [![GitHub](https://img.shields.io/github/license/OlimilO1402/Date_Calendar?style=plastic)](https://github.com/OlimilO1402/Date_Calendar/blob/master/LICENSE) 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/OlimilO1402/Date_Calendar?style=plastic)](https://github.com/OlimilO1402/Date_Calendar/releases/latest)
-[![Github All Releases](https://img.shields.io/github/downloads/OlimilO1402/Date_Calendar/total.svg)](https://github.com/OlimilO1402/Date_Calendar/releases/download/v2024.12.20/MyCalendar_v2024-12-20.zip)
+[![Github All Releases](https://img.shields.io/github/downloads/OlimilO1402/Date_Calendar/total.svg)](https://github.com/OlimilO1402/Date_Calendar/releases/download/v2024.12.20/Calendar_v2024-12-20.zip)
 ![GitHub followers](https://img.shields.io/github/followers/OlimilO1402?style=social)
   
 Start the interactive Calendar select the year, select the months to view, set colors and fonts to your liking, and print the calendar to pdf.
