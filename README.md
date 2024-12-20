@@ -16,9 +16,9 @@ How to do it, do the following:
 Or maybe you can print your pdfs in any size your printer is capable of.  
 
 In order to compile this repo you also need the following:  
-* Module [MTime in Date_TimeConversion](https://github.com/OlimilO1402/Date_TimeConversion/Modules/MTime.bas)  
-* Class [ColorDialog in Win_Dialogs](https://github.com/OlimilO1402/Win_Dialogs/Classes/ColorDialog.cls)  
-* Class [FontDialog in Win_Dialogs](https://github.com/OlimilO1402/Win_Dialogs/Classes/FontDialog.cls)  
+* Module [MTime in Date_TimeConversion](https://github.com/OlimilO1402/Date_TimeConversion/blob/main/Modules/MTime.bas)  
+* Class [ColorDialog in Win_Dialogs](https://github.com/OlimilO1402/Win_Dialogs/blob/main/Classes/ColorDialog.cls)  
+* Class [FontDialog in Win_Dialogs](hhttps://github.com/OlimilO1402/Win_Dialogs/blob/main/Classes/FontDialog.cls)  
 
 
 ![Calendar Image](Resources/Calendar2025.png "Calendar Image")
