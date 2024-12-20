@@ -127,34 +127,34 @@ End Function
 Public Function ELegalFestivals_ToStr(ByVal e As ELegalFestivals) As String
     Dim S As String
     Select Case e
-    Case ELegalFestivals.Neujahr:                   S = "Neujahr"                    ' 1  01.01.
-    Case ELegalFestivals.HeiligeDreiKönige:         S = "Heilige 3 Könige"        ' 2  06.01.
-    Case ELegalFestivals.InternationalerFrauentag:  S = "Internat.Frauent"        ' 3  08.03.
-    Case ELegalFestivals.Karfreitag:                S = "Karfreitag"                 ' 4  2 days before Ostersonntag"
-    Case ELegalFestivals.Ostersonntag:              S = "Ostersonntag"               ' 5  calculate accoding to Gauss"
-    Case ELegalFestivals.Ostermontag:               S = "Ostermontag"                ' 6  1 day after Ostersonntag"
-    Case ELegalFestivals.TagDerArbeit:              S = "Tag Der Arbeit"             ' 7  01.05."
-    Case ELegalFestivals.Muttertag:                 S = "Muttertag"                  ' 8  2. Sonntag im Mai
-    Case ELegalFestivals.ChristiHimmelfahrt:        S = "Christi Himmelf."           ' 9  10 days before Pfingstsonntag"
-    Case ELegalFestivals.Pfingstsonntag:            S = "Pfingstsonntag"             '10  7 weeks = 49 days after Ostersonntag"
-    Case ELegalFestivals.Pfingstmontag:             S = "Pfingstmontag"              '11  1 day after Pfingstsonntag"
-    Case ELegalFestivals.Fronleichnam:              S = "Fronleichnam"               '12  10 days after Pfingstmontag"
-    Case ELegalFestivals.AugsburgerFriedensfest:    S = "Augsbg.Friedensf."         '13  08.08."
-    Case ELegalFestivals.MariaeHimmelfahrt:         S = "Mariä Himmelf."            '14  15.08."
-    Case ELegalFestivals.Weltkindertag:             S = "Weltkindertag"              '15  20.09."
-    Case ELegalFestivals.TagDerDeutschenEinheit:    S = "Tag d.Dt.Einheit"           '16  03.10."
-    Case ELegalFestivals.Reformationstag:           S = "Reformationstag"            '17  31.10."
-    Case ELegalFestivals.Allerheiligen:             S = "Allerheiligen"              '18
-    Case ELegalFestivals.BussUndBettag:             S = "Buß- & Bettag"              '19  20.11
+    Case ELegalFestivals.Neujahr:                   S = "Neujahr"           ' 1  01.01.
+    Case ELegalFestivals.HeiligeDreiKönige:         S = "Heilige 3 Könige"  ' 2  06.01.
+    Case ELegalFestivals.InternationalerFrauentag:  S = "Internat.Frauent"  ' 3  08.03.
+    Case ELegalFestivals.Karfreitag:                S = "Karfreitag"        ' 4  2 days before Ostersonntag"
+    Case ELegalFestivals.Ostersonntag:              S = "Ostersonntag"      ' 5  calculate accoding to Gauss"
+    Case ELegalFestivals.Ostermontag:               S = "Ostermontag"       ' 6  1 day after Ostersonntag"
+    Case ELegalFestivals.TagDerArbeit:              S = "Tag Der Arbeit"    ' 7  01.05."
+    Case ELegalFestivals.Muttertag:                 S = "Muttertag"         ' 8  2. Sonntag im Mai
+    Case ELegalFestivals.ChristiHimmelfahrt:        S = "Christi Himmelf."  ' 9  10 days before Pfingstsonntag"
+    Case ELegalFestivals.Pfingstsonntag:            S = "Pfingstsonntag"    '10  7 weeks = 49 days after Ostersonntag"
+    Case ELegalFestivals.Pfingstmontag:             S = "Pfingstmontag"     '11  1 day after Pfingstsonntag"
+    Case ELegalFestivals.Fronleichnam:              S = "Fronleichnam"      '12  10 days after Pfingstmontag"
+    Case ELegalFestivals.AugsburgerFriedensfest:    S = "Augsbg.Friedensf." '13  08.08."
+    Case ELegalFestivals.MariaeHimmelfahrt:         S = "Mariä Himmelf."    '14  15.08."
+    Case ELegalFestivals.Weltkindertag:             S = "Weltkindertag"     '15  20.09."
+    Case ELegalFestivals.TagDerDeutschenEinheit:    S = "Tag d.Dt.Einheit"  '16  03.10."
+    Case ELegalFestivals.Reformationstag:           S = "Reformationstag"   '17  31.10."
+    Case ELegalFestivals.Allerheiligen:             S = "Allerheiligen"     '18
+    Case ELegalFestivals.BussUndBettag:             S = "Buß- & Bettag"     '19  20.11
     
-    Case ELegalFestivals.ErsterAdvent:              S = "Erster Advent"              '19  20.11
+    Case ELegalFestivals.ErsterAdvent:              S = "Erster Advent"     '19  20.11
     
-    Case EContractFestivals.Heiligabend:            S = "Heiligabend"                '20  24.12.
+    Case EContractFestivals.Heiligabend:            S = "Heiligabend"       '20  24.12.
     
-    Case ELegalFestivals.Weihnachtsfeiertag1:       S = "1. Weihnachtsf."            '21  25.12.
-    Case ELegalFestivals.Weihnachtsfeiertag2:       S = "2. Weihnachtsf."            '22  26.12.
+    Case ELegalFestivals.Weihnachtsfeiertag1:       S = "1. Weihnachtsf."   '21  25.12.
+    Case ELegalFestivals.Weihnachtsfeiertag2:       S = "2. Weihnachtsf."   '22  26.12.
     
-    Case EContractFestivals.Silvester:              S = "Silvester"                  '23  31.12.
+    Case EContractFestivals.Silvester:              S = "Silvester"         '23  31.12.
     End Select
     ELegalFestivals_ToStr = S
 End Function
@@ -211,13 +211,14 @@ Public Property Get Festivals_Index(this() As LegalFestival, ByVal aDate As Date
         End If
     Next
 End Property
+' ^ ############################## ^ '       the legal and religious holidays / festivals       ' ^ ############################## ^ '
 
 Public Function New_CalendarYear(ByVal Year As Integer, Optional ByVal StartMonth As Integer = 1, Optional ByVal EndMonth As Integer = 12) As CalendarYear
     Dim Y As CalendarYear
     Y.Year = Year
     Y.Fests = GetFestivals(Year)
     StartMonth = IIf(0 < StartMonth And StartMonth <= 12, StartMonth, 1)
-    EndMonth = IIf(StartMonth < EndMonth And EndMonth <= 12, EndMonth, 12)
+    EndMonth = IIf(StartMonth <= EndMonth And EndMonth <= 12, EndMonth, 12)
     ReDim Y.Months(StartMonth To EndMonth)
     Dim m As Integer
     For m = StartMonth To EndMonth
@@ -337,6 +338,15 @@ Public Function CalendarView_Clone(other As CalendarView) As CalendarView
         Set .FontWeekNr = StdFont_Clone(other.FontWeekNr)
         .TmpDayWidth = other.TmpDayWidth
         .TmpDayHeight = other.TmpDayHeight
+    End With
+End Function
+
+Public Function CalendarView_Dispose(this As CalendarView)
+    With this
+        Set .Canvas = Nothing
+        Set .FontDayNrName = Nothing
+        Set .FontMonthName = Nothing
+        Set .FontWeekNr = Nothing
     End With
 End Function
 

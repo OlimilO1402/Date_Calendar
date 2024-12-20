@@ -33,9 +33,9 @@ Begin VB.Form FPaperSettings
    End
    Begin VB.ListBox LstPaperSize 
       Height          =   735
-      ItemData        =   "FPrintSettings.frx":0000
+      ItemData        =   "FPaperSettings.frx":0000
       Left            =   120
-      List            =   "FPrintSettings.frx":000A
+      List            =   "FPaperSettings.frx":000A
       Style           =   1  'Kontrollkästchen
       TabIndex        =   0
       Top             =   120
@@ -76,9 +76,10 @@ Public Function ShowDialog(FOwner As Form, PaperSize_inout As PrinterObjectConst
     m_PapOrient = PapOrient_inout
     UpdateView
     Me.Show vbModal, FOwner
+    ShowDialog = m_Result
+    If m_Result <> VbMsgBoxResult.vbOK Then Exit Function
     PaperSize_inout = m_PaperSize
     PapOrient_inout = m_PapOrient
-    ShowDialog = m_Result
 End Function
 
 Private Sub UpdateView()

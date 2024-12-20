@@ -23,7 +23,7 @@ Begin VB.Form FCalendar
       Caption         =   "Set Colors And Fonts..."
       Height          =   375
       Left            =   10320
-      TabIndex        =   10
+      TabIndex        =   8
       ToolTipText     =   "Uses ""Microsoft Print to PDF"" by default"
       Top             =   60
       Width           =   2415
@@ -40,7 +40,7 @@ Begin VB.Form FCalendar
    Begin VB.ComboBox CmbMonthTo 
       Height          =   375
       Left            =   4800
-      TabIndex        =   8
+      TabIndex        =   5
       Text            =   "Combo1"
       Top             =   60
       Width           =   1455
@@ -48,7 +48,7 @@ Begin VB.Form FCalendar
    Begin VB.ComboBox CmbMonthFrom 
       Height          =   375
       Left            =   2760
-      TabIndex        =   7
+      TabIndex        =   3
       Text            =   "Combo1"
       Top             =   60
       Width           =   1455
@@ -57,7 +57,7 @@ Begin VB.Form FCalendar
       Caption         =   "Next January"
       Height          =   255
       Left            =   8520
-      TabIndex        =   4
+      TabIndex        =   7
       Top             =   120
       Value           =   1  'Aktiviert
       Width           =   1695
@@ -66,7 +66,7 @@ Begin VB.Form FCalendar
       Caption         =   "Last December"
       Height          =   255
       Left            =   6600
-      TabIndex        =   3
+      TabIndex        =   6
       Top             =   120
       Value           =   1  'Aktiviert
       Width           =   1695
@@ -81,6 +81,7 @@ Begin VB.Form FCalendar
    End
    Begin VB.PictureBox PBCalendar 
       Appearance      =   0  '2D
+      AutoSize        =   -1  'True
       BackColor       =   &H80000005&
       FillColor       =   &H00C0C0C0&
       BeginProperty Font 
@@ -98,7 +99,7 @@ Begin VB.Form FCalendar
       ScaleHeight     =   599
       ScaleMode       =   3  'Pixel
       ScaleWidth      =   1079
-      TabIndex        =   0
+      TabIndex        =   10
       Top             =   480
       Width           =   16215
    End
@@ -107,7 +108,7 @@ Begin VB.Form FCalendar
       Caption         =   "to:"
       Height          =   255
       Left            =   4440
-      TabIndex        =   6
+      TabIndex        =   4
       Top             =   120
       Width           =   225
    End
@@ -116,7 +117,7 @@ Begin VB.Form FCalendar
       Caption         =   "from:"
       Height          =   255
       Left            =   2160
-      TabIndex        =   5
+      TabIndex        =   2
       Top             =   120
       Width           =   465
    End
@@ -125,7 +126,7 @@ Begin VB.Form FCalendar
       Caption         =   "Year:"
       Height          =   255
       Left            =   120
-      TabIndex        =   2
+      TabIndex        =   0
       Top             =   120
       Width           =   435
    End
@@ -230,7 +231,7 @@ Private Sub UpdateView()
 End Sub
 
 Private Sub BtnSetColorAndFonts_Click()
-    If FCalSettings.ShowDialog(Me, m_CalView) = vbCancel Then Exit Sub
+    If FCalSettings.ShowDialog(Me, m_CalView) <> VbMsgBoxResult.vbOK Then Exit Sub
     UpdateView
 End Sub
 
@@ -247,26 +248,24 @@ End Function
 Private Sub BtnPrintToPDF_Click()
 Try: On Error GoTo Catch
     
-    If FPaperSettings.ShowDialog(Me, m_PaperSize, m_PapOrient) = vbCancel Then Exit Sub
+    Dim CalView As CalendarView: CalView = MDECalendar.CalendarView_Clone(m_CalView)
+        
+    If FPaperSettings.ShowDialog(Me, m_PaperSize, m_PapOrient) <> VbMsgBoxResult.vbOK Then Exit Sub
     
-    Dim ctrl As Control: Set ctrl = m_CalView.Canvas
     
     Set Printer = SelectPrinter("Microsoft Print to PDF")
-    Set m_CalView.Canvas = Printer
-    'Printer.PaperSize = PrinterObjectConstants.vbPRPSA3
-    Printer.PaperSize = m_PaperSize 'PrinterObjectConstants.vbPRPSA4
-    Printer.Orientation = m_PapOrient 'PrinterObjectConstants.vbPRORPortrait
-    'Printer.Orientation = PrinterObjectConstants.vbPRORLandscape '2
+    Set CalView.Canvas = Printer
+    Printer.PaperSize = m_PaperSize
+    Printer.Orientation = m_PapOrient
     'Debug.Print Printer.DriverName '= "winspool"
     'Debug.Print Printer.DeviceName '= "Microsoft Print to PDF"
     'Printer.NewPage
-    MDECalendar.CalendarView_DrawYear m_CalView, m_Calendar
+    MDECalendar.CalendarView_DrawYear CalView, m_Calendar
     Printer.EndDoc
     Printer.KillDoc
     
-    Set m_CalView.Canvas = ctrl
-    
-    Exit Sub
+    'Exit Sub
+    GoTo Finally
 Catch:
     If Err.Number = 482 Then
         'User selected Cancel
@@ -275,6 +274,8 @@ Catch:
     Else
         MsgBox "Error during printing!" & vbCrLf & Err.Number & " " & Err.Description
     End If
-    Debug.Print Err.Number
+    'Debug.Print Err.Number
+Finally:
+    MDECalendar.CalendarView_Dispose CalView
 End Sub
 

@@ -23,98 +23,100 @@ Begin VB.Form FCalSettings
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows-Standard
    Begin VB.PictureBox PBFestivalDay 
-      Appearance      =   0  '2D
-      BackColor       =   &H80000005&
-      ForeColor       =   &H80000008&
+      BackColor       =   &H00FFFFFF&
       Height          =   375
       Left            =   4080
-      ScaleHeight     =   345
-      ScaleWidth      =   345
+      ScaleHeight     =   315
+      ScaleWidth      =   315
       TabIndex        =   20
       Top             =   2760
       Width           =   375
    End
    Begin VB.PictureBox PBNormalGrid 
-      Appearance      =   0  '2D
-      BackColor       =   &H80000005&
-      ForeColor       =   &H80000008&
+      BackColor       =   &H00FFFFFF&
       Height          =   375
-      Left            =   1560
-      ScaleHeight     =   345
-      ScaleWidth      =   345
-      TabIndex        =   19
+      Left            =   1440
+      ScaleHeight     =   315
+      ScaleWidth      =   315
+      TabIndex        =   18
       Top             =   2760
       Width           =   375
    End
    Begin VB.PictureBox PBColorSundayLN 
       Appearance      =   0  '2D
       BackColor       =   &H80000005&
+      BorderStyle     =   0  'Kein
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   3000
-      ScaleHeight     =   345
-      ScaleWidth      =   1425
-      TabIndex        =   11
+      ScaleHeight     =   375
+      ScaleWidth      =   1455
+      TabIndex        =   16
       Top             =   2280
       Width           =   1455
    End
    Begin VB.PictureBox PBColorSaturdayLN 
       Appearance      =   0  '2D
       BackColor       =   &H80000005&
+      BorderStyle     =   0  'Kein
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   3000
-      ScaleHeight     =   345
-      ScaleWidth      =   1425
-      TabIndex        =   10
+      ScaleHeight     =   375
+      ScaleWidth      =   1455
+      TabIndex        =   13
       Top             =   1920
       Width           =   1455
    End
    Begin VB.PictureBox PBColorWeekdayLN 
       Appearance      =   0  '2D
       BackColor       =   &H80000005&
+      BorderStyle     =   0  'Kein
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   3000
-      ScaleHeight     =   345
-      ScaleWidth      =   1425
-      TabIndex        =   9
+      ScaleHeight     =   375
+      ScaleWidth      =   1455
+      TabIndex        =   10
       Top             =   1560
       Width           =   1455
    End
    Begin VB.PictureBox PBColorSunday 
       Appearance      =   0  '2D
       BackColor       =   &H80000005&
+      BorderStyle     =   0  'Kein
       ForeColor       =   &H80000008&
       Height          =   375
-      Left            =   1560
-      ScaleHeight     =   345
-      ScaleWidth      =   1425
-      TabIndex        =   8
+      Left            =   1440
+      ScaleHeight     =   375
+      ScaleWidth      =   1455
+      TabIndex        =   15
       Top             =   2280
       Width           =   1455
    End
    Begin VB.PictureBox PBColorSaturday 
       Appearance      =   0  '2D
       BackColor       =   &H80000005&
+      BorderStyle     =   0  'Kein
       ForeColor       =   &H80000008&
       Height          =   375
-      Left            =   1560
-      ScaleHeight     =   345
-      ScaleWidth      =   1425
-      TabIndex        =   7
+      Left            =   1440
+      ScaleHeight     =   375
+      ScaleWidth      =   1455
+      TabIndex        =   12
       Top             =   1920
       Width           =   1455
    End
    Begin VB.PictureBox PBColorWeekday 
       Appearance      =   0  '2D
       BackColor       =   &H80000005&
+      BorderStyle     =   0  'Kein
       ForeColor       =   &H80000008&
       Height          =   375
-      Left            =   1560
-      ScaleHeight     =   345
-      ScaleWidth      =   1425
-      TabIndex        =   6
+      Left            =   1440
+      ScaleHeight     =   375
+      ScaleWidth      =   1455
+      TabIndex        =   9
       Top             =   1560
       Width           =   1455
    End
@@ -139,7 +141,7 @@ Begin VB.Form FCalSettings
       Default         =   -1  'True
       Height          =   375
       Left            =   840
-      TabIndex        =   1
+      TabIndex        =   21
       Top             =   3480
       Width           =   1335
    End
@@ -148,7 +150,7 @@ Begin VB.Form FCalSettings
       Caption         =   "Cancel"
       Height          =   375
       Left            =   2400
-      TabIndex        =   0
+      TabIndex        =   22
       Top             =   3480
       Width           =   1335
    End
@@ -157,7 +159,7 @@ Begin VB.Form FCalSettings
       Caption         =   "Festival-Day Border:"
       Height          =   255
       Left            =   2160
-      TabIndex        =   22
+      TabIndex        =   19
       Top             =   2760
       Width           =   1740
    End
@@ -166,7 +168,7 @@ Begin VB.Form FCalSettings
       Caption         =   "Normal Grid:"
       Height          =   255
       Left            =   120
-      TabIndex        =   21
+      TabIndex        =   17
       Top             =   2760
       Width           =   1140
    End
@@ -175,7 +177,7 @@ Begin VB.Form FCalSettings
       Caption         =   "Fonts:"
       Height          =   255
       Left            =   120
-      TabIndex        =   18
+      TabIndex        =   0
       Top             =   120
       Width           =   510
    End
@@ -184,7 +186,7 @@ Begin VB.Form FCalSettings
       Caption         =   "Last/Next Year:"
       Height          =   255
       Left            =   3000
-      TabIndex        =   17
+      TabIndex        =   7
       Top             =   1200
       Width           =   1320
    End
@@ -192,8 +194,8 @@ Begin VB.Form FCalSettings
       AutoSize        =   -1  'True
       Caption         =   "This Year:"
       Height          =   255
-      Left            =   1560
-      TabIndex        =   16
+      Left            =   1440
+      TabIndex        =   6
       Top             =   1200
       Width           =   840
    End
@@ -202,7 +204,7 @@ Begin VB.Form FCalSettings
       Caption         =   "Sundays:"
       Height          =   255
       Left            =   120
-      TabIndex        =   15
+      TabIndex        =   14
       Top             =   2280
       Width           =   765
    End
@@ -211,7 +213,7 @@ Begin VB.Form FCalSettings
       Caption         =   "Saturdays:"
       Height          =   255
       Left            =   120
-      TabIndex        =   14
+      TabIndex        =   11
       Top             =   1920
       Width           =   900
    End
@@ -220,7 +222,7 @@ Begin VB.Form FCalSettings
       Caption         =   "Weekdays:"
       Height          =   255
       Left            =   120
-      TabIndex        =   13
+      TabIndex        =   8
       Top             =   1560
       Width           =   930
    End
@@ -229,7 +231,7 @@ Begin VB.Form FCalSettings
       Caption         =   "Colors:"
       Height          =   255
       Left            =   120
-      TabIndex        =   12
+      TabIndex        =   5
       Top             =   1200
       Width           =   615
    End
@@ -240,10 +242,10 @@ Begin VB.Form FCalSettings
       Caption         =   "12 So Muttertag"
       ForeColor       =   &H80000008&
       Height          =   435
-      Left            =   1560
-      TabIndex        =   5
+      Left            =   1440
+      TabIndex        =   3
       Top             =   600
-      Width           =   2295
+      Width           =   2415
    End
    Begin VB.Label LblFontMonthname 
       Appearance      =   0  '2D
@@ -252,10 +254,10 @@ Begin VB.Form FCalSettings
       Caption         =   "September '24 "
       ForeColor       =   &H80000008&
       Height          =   435
-      Left            =   1560
-      TabIndex        =   3
+      Left            =   1440
+      TabIndex        =   1
       Top             =   120
-      Width           =   2295
+      Width           =   2415
    End
 End
 Attribute VB_Name = "FCalSettings"
@@ -278,7 +280,8 @@ Friend Function ShowDialog(FOwner As Form, CalV_inout As CalendarView) As VbMsgB
     m_CalView = CalV_inout ' CalendarView_Clone(CalV_inout)
     UpdateView
     Me.Show vbModal, FOwner
-    If m_Result = vbCancel Then Exit Function
+    ShowDialog = m_Result
+    If m_Result <> VbMsgBoxResult.vbOK Then Exit Function
     CalV_inout = m_CalView 'CalendarView_Clone(m_CalView)
 End Function
 
@@ -374,4 +377,37 @@ Private Sub PBFestivalDay_Click()
     m_CalView.ColorFestivlDay = m_ColrDlg.Color
     UpdateView
 End Sub
+
+'#################################
+Private Sub LblFontMonthname_GotFocus():    LblFontMonthname.BorderStyle = 1: End Sub
+Private Sub LblFontMonthname_LostFocus():   LblFontMonthname.BorderStyle = 0: End Sub
+
+Private Sub LblFontDayNrName_GotFocus():    LblFontDayNrName.BorderStyle = 1: End Sub
+Private Sub LblFontDayNrName_LostFocus():   LblFontDayNrName.BorderStyle = 0: End Sub
+
+
+Private Sub PBColorWeekday_GotFocus():    PBColorWeekday.BorderStyle = 1: PBColorWeekday.ZOrder 0: End Sub
+Private Sub PBColorWeekday_LostFocus():   PBColorWeekday.BorderStyle = 0: End Sub
+
+Private Sub PBColorSunday_GotFocus():    PBColorSunday.BorderStyle = 1: PBColorSunday.ZOrder 0: End Sub
+Private Sub PBColorSunday_LostFocus():   PBColorSunday.BorderStyle = 0: End Sub
+
+Private Sub PBColorSaturday_GotFocus():    PBColorSaturday.BorderStyle = 1: PBColorSaturday.ZOrder 0: End Sub
+Private Sub PBColorSaturday_LostFocus():   PBColorSaturday.BorderStyle = 0: End Sub
+
+Private Sub PBColorWeekdayLN_GotFocus():    PBColorWeekdayLN.BorderStyle = 1: PBColorWeekdayLN.ZOrder 0: End Sub
+Private Sub PBColorWeekdayLN_LostFocus():   PBColorWeekdayLN.BorderStyle = 0: End Sub
+
+Private Sub PBColorSundayLN_GotFocus():    PBColorSundayLN.BorderStyle = 1: PBColorSundayLN.ZOrder 0: End Sub
+Private Sub PBColorSundayLN_LostFocus():   PBColorSundayLN.BorderStyle = 0: End Sub
+
+Private Sub PBColorSaturdayLN_GotFocus():    PBColorSaturdayLN.BorderStyle = 1: PBColorSaturdayLN.ZOrder 0: End Sub
+Private Sub PBColorSaturdayLN_LostFocus():   PBColorSaturdayLN.BorderStyle = 0: End Sub
+
+
+Private Sub PBNormalGrid_GotFocus():    PBNormalGrid.BorderStyle = 1: PBNormalGrid.ZOrder 0: End Sub
+Private Sub PBNormalGrid_LostFocus():   PBNormalGrid.BorderStyle = 0: End Sub
+
+Private Sub PBFestivalDay_GotFocus():    PBFestivalDay.BorderStyle = 1: PBFestivalDay.ZOrder 0: End Sub
+Private Sub PBFestivalDay_LostFocus():   PBFestivalDay.BorderStyle = 0: End Sub
 
