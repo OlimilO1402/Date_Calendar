@@ -15,10 +15,10 @@ How to do it, do the following:
   
 Or maybe you can print your pdfs in any size your printer is capable of.  
 
-You also need the following:  
-* Module MTime in Date_TimeConversion  
-* Class ColorDialog in Win_Dialogs  
-* Class FontDialog in Win_Dialogs  
+In order to compile this repo you also need the following:  
+* Module [MTime in Date_TimeConversion](Date_TimeConversion/Modules/MTime.bas)  
+* Class [ColorDialog in Win_Dialogs](Win_Dialogs/Classes/ColorDialog.cls)  
+* Class [FontDialog in Win_Dialogs](Win_Dialogs/Classes/FontDialog.cls)  
 
 
 ![Calendar Image](Resources/Calendar2025.png "Calendar Image")
