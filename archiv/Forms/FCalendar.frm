@@ -147,29 +147,21 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-'Private m_Calendar  As MDECalendar.CalendarYear
-'Private m_CalView   As MDECalendar.CalendarView
+Private m_Calendar  As MDECalendar.CalendarYear
+Private m_CalView   As MDECalendar.CalendarView
 Private m_PaperSize As PrinterObjectConstants
 Private m_PapOrient As PrinterObjectConstants
-'Private m_CalDayMouseOver As MDECalendar.CalendarDay
-
-Private m_Calendar As Calendar
-Private m_CalView  As CalendarView
-
-Private m_IsInitializing As Boolean
+Private m_CalDayMouseOver As MDECalendar.CalendarDay
 
 Private Sub Form_Load()
-    m_IsInitializing = True
     Me.Caption = "My Calendar v" & App.Major & "." & App.Minor & "." & App.Revision
+    m_CalView = MDECalendar.New_CalendarView(Me.PBCalendar)
     FillCombos
-    CmbYear.ListIndex = GetDefaultYear - 1900 '+ 1
+    CmbYear.ListIndex = Year(Now) - 1900 + 1
     CmbMonthFrom.ListIndex = 0
     CmbMonthTo.ListIndex = 11
     m_PaperSize = PrinterObjectConstants.vbPRPSA4
     m_PapOrient = PrinterObjectConstants.vbPRORLandscape
-    Set m_Calendar = MNew.CalendarDefault
-    Set m_CalView = MNew.CalendarView(m_Calendar, PBCalendar)
-    m_IsInitializing = False
 End Sub
 
 Private Sub Form_Resize()
@@ -186,14 +178,14 @@ Private Sub FillCombos()
 End Sub
 
 Private Sub FillYears(cb As ComboBox)
-    cb.Clear: Dim y As Integer: For y = 1900 To 2100: cb.AddItem y: Next
+    cb.Clear: Dim Y As Integer: For Y = 1900 To 2100: cb.AddItem Y: Next
 End Sub
 Private Sub FillMonths(cb As ComboBox)
     cb.Clear: Dim m As Integer: For m = 1 To 12: cb.AddItem MonthName(m): Next
 End Sub
 
 Private Sub CmbYear_Click()
-    If m_IsInitializing Then Exit Sub
+    Debug.Print "Click"
     UpdateData
 End Sub
 
@@ -203,11 +195,11 @@ End Sub
 'End Sub
 
 Private Sub CmbYear_Scroll()
+    Debug.Print "Scroll"
     UpdateData
 End Sub
 
 Private Sub CmbMonthFrom_Click()
-    'If m_IsInitializing Then Exit Sub
     CmbMonthTo.ListIndex = Max(CmbMonthFrom.ListIndex, CmbMonthTo.ListIndex)
     UpdateData
 End Sub
@@ -234,52 +226,32 @@ Private Sub ChkNextJan_Click()
 End Sub
 
 Private Sub UpdateData()
-    If m_IsInitializing Then Exit Sub
-    Dim y  As Integer:  y = CmbYear.ListIndex + 1900
+    Dim Y As Integer: Y = CmbYear.ListIndex + 1900
     Dim mf As Integer: mf = CmbMonthFrom.ListIndex + 1
     Dim mt As Integer: mt = CmbMonthTo.ListIndex + 1
-    
-    'm_Calendar = MDECalendar.New_CalendarYear(y, mf, mt)
-    Dim ThisYear As CalendarYear
-    Dim LastYear As CalendarYear
-    Dim NextYear As CalendarYear
-    
-    Set ThisYear = MNew.CalendarYear(y, mf, mt)
-    If ChkLastDec.Value = CheckBoxConstants.vbChecked Then
-        Set LastYear = MNew.CalendarYear(y - 1, 12, 12)
-    End If
-    If ChkNextJan.Value = CheckBoxConstants.vbChecked Then
-        Set NextYear = MNew.CalendarYear(y + 1, 1, 1)
-    End If
-    
-    Set m_Calendar = MNew.Calendar(ThisYear, LastYear, NextYear)
-    
+    m_Calendar = MDECalendar.New_CalendarYear(Y, mf, mt)
     'm_CalView = MDECalendar.New_CalendarView(m_Calendar, Me.PBCalendar)
     'Set m_CalView.Canvas = Me.PBCalendar
-    'm_CalView = MDECalendar.CalendarView_Clone(m_CalView)
+    m_CalView = MDECalendar.CalendarView_Clone(m_CalView)
     
-    Set m_CalView = m_CalView.Clone
-    
-    'm_CalView.HasDecLastYear = ChkLastDec.Value = CheckBoxConstants.vbChecked
-    'm_CalView.HasJanNextYear = ChkNextJan.Value = CheckBoxConstants.vbChecked
+    m_CalView.HasDecLastYear = ChkLastDec.Value = CheckBoxConstants.vbChecked
+    m_CalView.HasJanNextYear = ChkNextJan.Value = CheckBoxConstants.vbChecked
     UpdateView
 End Sub
 
 Private Sub UpdateView()
-    If m_IsInitializing Then Exit Sub
     PBCalendar.Cls
-    m_CalView.Draw 'Calendar ' m_Calendar
-    'MDECalendar.CalendarView_DrawYear m_CalView, m_Calendar
+    MDECalendar.CalendarView_DrawYear m_CalView, m_Calendar
 End Sub
 
-Private Sub PBCalendar_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
-'    Dim CalDay As CalendarDay: CalDay = CalendarView_CalendarDayFromMouseCoords(m_CalView, m_Calendar, X, y)
-'    LblMouseOverDate.Caption = CalDay.Date
-'    If CalDay.Date <> m_CalDayMouseOver.Date Then
-'        CalendarDay_MouseOut m_CalDayMouseOver, m_Calendar
-'        m_CalDayMouseOver = CalDay
-'        UpdateView
-'    End If
+Private Sub PBCalendar_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    Dim CalDay As CalendarDay: CalDay = CalendarView_CalendarDayFromMouseCoords(m_CalView, m_Calendar, X, Y)
+    LblMouseOverDate.Caption = CalDay.Date
+    If CalDay.Date <> m_CalDayMouseOver.Date Then
+        CalendarDay_MouseOut m_CalDayMouseOver, m_Calendar
+        m_CalDayMouseOver = CalDay
+        UpdateView
+    End If
 End Sub
 
 Private Sub PBCalendar_Paint()
@@ -287,7 +259,6 @@ Private Sub PBCalendar_Paint()
 End Sub
 
 Private Sub PBCalendar_Resize()
-    m_CalView.Resize
     UpdateView
 End Sub
 
@@ -307,20 +278,21 @@ Private Function SelectPrinter(ByVal PrinterName As String) As Printer
 End Function
 
 Private Sub BtnPrintToPDF_Click()
-
 Try: On Error GoTo Catch
     
-    Dim CalView As CalendarView: Set CalView = m_CalView.Clone
+    Dim CalView As CalendarView: CalView = MDECalendar.CalendarView_Clone(m_CalView)
         
     If FPaperSettings.ShowDialog(Me, m_PaperSize, m_PapOrient) <> VbMsgBoxResult.vbOK Then Exit Sub
-    Printer.PaperSize = m_PaperSize
-    Printer.Orientation = m_PapOrient
+    
     
     Set Printer = SelectPrinter("Microsoft Print to PDF")
-    Set CalView.CanvasPrinter = Printer
-    
-    m_CalView.DrawCalendar m_Calendar
-    
+    Set CalView.Canvas = Printer
+    Printer.PaperSize = m_PaperSize
+    Printer.Orientation = m_PapOrient
+    'Debug.Print Printer.DriverName '= "winspool"
+    'Debug.Print Printer.DeviceName '= "Microsoft Print to PDF"
+    'Printer.NewPage
+    MDECalendar.CalendarView_DrawYear CalView, m_Calendar
     Printer.EndDoc
     Printer.KillDoc
     
@@ -336,39 +308,6 @@ Catch:
     End If
     'Debug.Print Err.Number
 Finally:
-    m_CalView.Dispose
-    'MDECalendar.CalendarView_Dispose CalView
-
-'Try: On Error GoTo Catch
-'
-'    Dim CalView As CalendarView: CalView = MDECalendar.CalendarView_Clone(m_CalView)
-'
-'    If FPaperSettings.ShowDialog(Me, m_PaperSize, m_PapOrient) <> VbMsgBoxResult.vbOK Then Exit Sub
-'
-'
-'    Set Printer = SelectPrinter("Microsoft Print to PDF")
-'    Set CalView.Canvas = Printer
-'    Printer.PaperSize = m_PaperSize
-'    Printer.Orientation = m_PapOrient
-'    'Debug.Print Printer.DriverName '= "winspool"
-'    'Debug.Print Printer.DeviceName '= "Microsoft Print to PDF"
-'    'Printer.NewPage
-'    MDECalendar.CalendarView_DrawYear CalView, m_Calendar
-'    Printer.EndDoc
-'    Printer.KillDoc
-'
-'    'Exit Sub
-'    GoTo Finally
-'Catch:
-'    If Err.Number = 482 Then
-'        'User selected Cancel
-'        'MsgBox "There was an error, User selected Cancel or "
-'        Debug.Print Err.LastDllError
-'    Else
-'        MsgBox "Error during printing!" & vbCrLf & Err.Number & " " & Err.Description
-'    End If
-'    'Debug.Print Err.Number
-'Finally:
-'    MDECalendar.CalendarView_Dispose CalView
+    MDECalendar.CalendarView_Dispose CalView
 End Sub
 

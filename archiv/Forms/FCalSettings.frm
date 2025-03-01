@@ -266,7 +266,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Private m_CalView As CalendarView
+Private m_CalView As MDECalendar.CalendarView
 Private m_Result  As VbMsgBoxResult
 Private m_FontDlg As FontDialog
 Private m_ColrDlg As ColorDialog
@@ -277,12 +277,12 @@ Private Sub Form_Load()
 End Sub
 
 Friend Function ShowDialog(FOwner As Form, CalV_inout As CalendarView) As VbMsgBoxResult
-    Set m_CalView = CalV_inout.Clone ' CalendarView_Clone(CalV_inout)
+    m_CalView = CalV_inout ' CalendarView_Clone(CalV_inout)
     UpdateView
     Me.Show vbModal, FOwner
     ShowDialog = m_Result
     If m_Result <> VbMsgBoxResult.vbOK Then Exit Function
-    CalV_inout.NewC m_CalView
+    CalV_inout = m_CalView 'CalendarView_Clone(m_CalView)
 End Function
 
 Private Sub UpdateView()
