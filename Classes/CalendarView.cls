@@ -137,7 +137,7 @@ End Sub
 'End Function
 
 Friend Function Clone() As CalendarView
-    Set Clone = New CalendarView: CalendarView.NewC Me
+    Set Clone = New CalendarView: Clone.NewC Me
 End Function
 
 Private Function CalcRectWidth() As Double
@@ -360,6 +360,7 @@ Public Sub DrawYear(CalYear As CalendarYear)
     For i = CalYear.StartMonth To CalYear.EndMonth
         Set cm = CalYear.Month(i)
         Me.DrawMonth cm
+        m_Canvas.CurrentX = i * m_DayRectWidth
     Next
 End Sub
 
@@ -370,19 +371,19 @@ Public Sub DrawMonth(CalMonth As CalendarMonth)
     Dim ny As Integer
     If m_HasMonthNames Then
         Set m_Canvas.Font = m_FontMonthName
-        Dim S As String: S = MonthName(CalMonth.Month) & " '" & Right(CStr(CalMonth.Year.Year), 2)
-        m_Canvas.Print S
+        Dim s As String: s = MonthName(CalMonth.Month) & " '" & Right(CStr(CalMonth.Year.Year), 2)
+        m_Canvas.Print s
         ny = ny + 1
         m_Canvas.CurrentY = m_MarginCal.Top + ny * m_DayRectHeight
     End If
-    m_Canvas.CurrentX = x
+    'm_Canvas.CurrentX = x
     Dim i As Integer
     For i = 1 To CalMonth.CountDays
         DrawDay CalMonth.Day(i)
         ny = ny + 1
         m_Canvas.CurrentY = m_MarginCal.Top + ny * m_DayRectHeight
     Next
-    m_Canvas.CurrentX = x
+    'm_Canvas.CurrentX = x + m_DayRectWidth
     m_Canvas.CurrentY = y
     'm_DayRectWidth
     'm_DayRectHeight
@@ -415,13 +416,13 @@ Public Sub DrawDay(CalDay As CalendarDay)
     m_Canvas.CurrentX = x
     m_Canvas.CurrentY = y
     
-    Dim S As String
-    S = CStr(CalDay.DayDate) & " " & MTime.Weekday_ToStr(wd, vbSunday, True)
+    Dim s As String
+    s = CStr(CalDay.DayDate) & " " & MTime.Weekday_ToStr(wd, vbSunday, True)
     If CalDay.IsFestivalDay Then
-        S = S & " " & CalDay.FestivalDay.Name ' MDECalendar.ELegalFestivals_ToStr(CalDay.FestivalIndex)
+        s = s & " " & CalDay.FestivalDay.Name ' MDECalendar.ELegalFestivals_ToStr(CalDay.FestivalIndex)
     Else
         If wd = vbMonday Then
-            S = S & " " & "KW " & MTime.WeekOfYearISO(CalDay.DayDate)
+            s = s & " " & "KW " & MTime.WeekOfYearISO(CalDay.DayDate)
         End If
     End If
     
@@ -430,10 +431,10 @@ Public Sub DrawDay(CalDay As CalendarDay)
         m_Canvas.ForeColor = RGB(255, 255, 255)
     End If
     
-    m_Canvas.Print S
+    m_Canvas.Print s
     
-    'm_Canvas.CurrentX = x
-    m_Canvas.CurrentY = y
+    m_Canvas.CurrentX = x
+    m_Canvas.CurrentY = y '+ m_DayRectHeight
     m_Canvas.ForeColor = fc
 'Catch:
 End Sub
@@ -462,7 +463,7 @@ End Sub
 'End Property
 
 Public Function CalendarDayFromMouseCoords(Calendar As Calendar, ByVal MouseX As Single, ByVal MouseY As Single) As CalendarDay
-    With this
+    With Calendar
         MouseX = MouseX - m_MarginCal.Left
         MouseY = MouseY - m_MarginCal.Top
         Dim m As Integer: m = CInt(MouseX \ m_DayRectWidth)        ' x-axis

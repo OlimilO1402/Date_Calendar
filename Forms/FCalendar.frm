@@ -173,10 +173,10 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Form_Resize()
-    Dim L As Single, T As Single: T = PBCalendar.Top
+    Dim l As Single, T As Single: T = PBCalendar.Top
     Dim W As Single: W = Me.ScaleWidth
     Dim H As Single: H = Me.ScaleHeight - T
-    If W > 0 And H > 0 Then PBCalendar.Move L, T, W, H
+    If W > 0 And H > 0 Then PBCalendar.Move l, T, W, H
 End Sub
 
 Private Sub FillCombos()
@@ -319,7 +319,7 @@ Try: On Error GoTo Catch
     Set Printer = SelectPrinter("Microsoft Print to PDF")
     Set CalView.CanvasPrinter = Printer
     
-    m_CalView.DrawCalendar m_Calendar
+    m_CalView.Draw 'm_Calendar
     
     Printer.EndDoc
     Printer.KillDoc

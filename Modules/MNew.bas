@@ -47,5 +47,5 @@ Public Function PersonalEvent(aDate As Date, aName As String, EventName As Strin
 End Function
 
 Public Function CalendarEvent(ByVal EventFromDate As Date, ByVal EventToDate As Date, ByVal EventName As String) As CalendarEvent
-    Set CalendarEvent = New CalendarEvent: CalendarEvent.New_ DateFrom, DateTo, EventName
+    Set CalendarEvent = New CalendarEvent: CalendarEvent.New_ EventFromDate, EventToDate, EventName
 End Function
