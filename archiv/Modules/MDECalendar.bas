@@ -81,12 +81,12 @@ End Type
 Public Type CalendarMonth
     Year   As Integer
     Month  As Integer
-    Days() As CalendarDay
+    days() As CalendarDay
 End Type
 
 Public Type CalendarYear
     Year     As Integer
-    Months() As CalendarMonth
+    months() As CalendarMonth
     Fests()  As LegalFestival
 End Type
 
@@ -235,17 +235,17 @@ Public Function New_CalendarYear(ByVal Year As Integer, _
                                  Optional ByVal EndMonth As Integer = 12, _
                                  Optional ByVal includeLastDec As Boolean = False, _
                                  Optional ByVal includeNextJan As Boolean = False) As CalendarYear
-    Dim Y As CalendarYear
-    Y.Year = Year
-    Y.Fests = GetFestivals(Year)
+    Dim y As CalendarYear
+    y.Year = Year
+    y.Fests = GetFestivals(Year)
     StartMonth = IIf(0 < StartMonth And StartMonth <= 12, StartMonth, 1)
     EndMonth = IIf(StartMonth <= EndMonth And EndMonth <= 12, EndMonth, 12)
-    ReDim Y.Months(StartMonth To EndMonth)
+    ReDim y.months(StartMonth To EndMonth)
     Dim m As Integer
     For m = StartMonth To EndMonth
-        Y.Months(m) = New_CalendarMonth(Y, m)
+        y.months(m) = New_CalendarMonth(y, m)
     Next
-    New_CalendarYear = Y
+    New_CalendarYear = y
 End Function
 
 Public Function New_CalendarMonth(CalYear As CalendarYear, ByVal Month As Integer) As CalendarMonth
@@ -253,10 +253,10 @@ Public Function New_CalendarMonth(CalYear As CalendarYear, ByVal Month As Intege
         .Year = CalYear.Year
         .Month = Month
         Dim mds As Integer: mds = DaysInMonth(.Year, Month)
-        ReDim .Days(1 To mds)
+        ReDim .days(1 To mds)
         Dim d As Integer
         For d = 1 To mds
-            .Days(d) = New_CalendarDay(CalYear, Month, d)
+            .days(d) = New_CalendarDay(CalYear, Month, d)
         Next
     End With
 End Function
@@ -389,7 +389,7 @@ Public Sub CalendarDay_MouseOut(this As CalendarDay, CalYear As CalendarYear)
         Dim m As Integer: m = Month(.Date)
         If m = 0 Then Exit Sub
         If .Day = 0 Then Exit Sub
-        CalYear.Months(Month(.Date)).Days(.Day).MouseOver = False
+        CalYear.months(Month(.Date)).days(.Day).MouseOver = False
     End With
 End Sub
 
@@ -401,10 +401,10 @@ Public Function CalendarView_CalendarDayFromMouseCoords(this As CalendarView, Ca
         Dim d As Integer: d = CInt(MouseY \ .TmpDayHeight) '- 1  ' y-axis
         Dim dly As Integer: dly = IIf(.HasDecLastYear, 1, 0)
         Dim jny As Integer: jny = IIf(.HasJanNextYear, 1, 0)
-        If 0 <= m And m <= UBound(CalYear.Months) + 1 + dly + jny Then
+        If 0 <= m And m <= UBound(CalYear.months) + 1 + dly + jny Then
             If 0 < d And d < MTime.DaysInMonth(CalYear.Year, m) Then
-                CalYear.Months(m).Days(d).MouseOver = True
-                CalendarView_CalendarDayFromMouseCoords = CalYear.Months(m).Days(d)
+                CalYear.months(m).days(d).MouseOver = True
+                CalendarView_CalendarDayFromMouseCoords = CalYear.months(m).days(d)
             End If
         End If
     End With
@@ -412,7 +412,7 @@ End Function
 
 Public Property Get CalendarView_DayWidth(this As CalendarView, CalYear As CalendarYear) As Double
     With this
-        Dim n As Long: n = UBound(CalYear.Months) - LBound(CalYear.Months) + 1 + IIf(.HasDecLastYear, 1, 0) + IIf(.HasJanNextYear, 1, 0)
+        Dim n As Long: n = UBound(CalYear.months) - LBound(CalYear.months) + 1 + IIf(.HasDecLastYear, 1, 0) + IIf(.HasJanNextYear, 1, 0)
         CalendarView_DayWidth = (.Canvas.ScaleWidth - .MarginCal.Left - .MarginCal.Right) / n
     End With
 End Property
@@ -450,8 +450,8 @@ Public Sub CalendarView_DrawYear(this As CalendarView, CalYear As CalendarYear)
         .ColTmpSunday = .ColorSunday
 
         Dim m As Integer
-        For m = LBound(CalYear.Months) To UBound(CalYear.Months)
-            CalendarView_DrawMonth this, CalYear.Months(m)
+        For m = LBound(CalYear.months) To UBound(CalYear.months)
+            CalendarView_DrawMonth this, CalYear.months(m)
             nx = nx + 1
             .Canvas.CurrentX = .MarginCal.Left + nx * .TmpDayWidth
         Next
@@ -474,7 +474,7 @@ Public Sub CalendarView_DrawMonth(this As CalendarView, CalMonth As CalendarMont
 'Try: On Error GoTo Catch
     With this
         Dim X As Double: X = .Canvas.CurrentX
-        Dim Y As Double: Y = .MarginCal.Top
+        Dim y As Double: y = .MarginCal.Top
         Dim ny As Integer
         If .HasMonthNames Then
             Set .Canvas.Font = .FontMonthName
@@ -485,15 +485,15 @@ Public Sub CalendarView_DrawMonth(this As CalendarView, CalMonth As CalendarMont
         End If
         .Canvas.CurrentX = X
         Dim d As Integer
-        Dim L As Integer: L = LBound(CalMonth.Days)
-        Dim u As Integer: u = UBound(CalMonth.Days)
+        Dim L As Integer: L = LBound(CalMonth.days)
+        Dim u As Integer: u = UBound(CalMonth.days)
         For d = L To u
-            CalendarView_DrawDay this, CalMonth.Days(d)
+            CalendarView_DrawDay this, CalMonth.days(d)
             ny = ny + 1
             .Canvas.CurrentY = .MarginCal.Top + ny * .TmpDayHeight
         Next
         .Canvas.CurrentY = X
-        .Canvas.CurrentY = Y
+        .Canvas.CurrentY = y
     End With
 'Catch:
 End Sub
@@ -503,11 +503,11 @@ Public Sub CalendarView_DrawDay(this As CalendarView, CalDay As CalendarDay)
     With this
         Dim fc As Long: fc = .Canvas.ForeColor
         Dim X As Double: X = .Canvas.CurrentX
-        Dim Y As Double: Y = .Canvas.CurrentY
+        Dim y As Double: y = .Canvas.CurrentY
         Dim wd As VbDayOfWeek: wd = Weekday(CalDay.Date)
         Dim c As Long: c = IIf(wd = vbSaturday, .ColTmpSaturday, IIf(wd = VbDayOfWeek.vbSunday, .ColTmpSunday, .ColTmpWeekday))
         
-        .Canvas.Line (X, Y)-(X + .TmpDayWidth - 1, Y + .TmpDayHeight - 1), c, BF
+        .Canvas.Line (X, y)-(X + .TmpDayWidth - 1, y + .TmpDayHeight - 1), c, BF
         
         Select Case True
         Case CalDay.MouseOver
@@ -520,13 +520,13 @@ Public Sub CalendarView_DrawDay(this As CalendarView, CalDay As CalendarDay)
             .Canvas.DrawWidth = 1
             c = .ColorNormalGrid
         End Select
-        .Canvas.Line (X, Y)-(X + .TmpDayWidth - 1, Y + .TmpDayHeight - 1), c, B
+        .Canvas.Line (X, y)-(X + .TmpDayWidth - 1, y + .TmpDayHeight - 1), c, B
         
         .Canvas.CurrentX = X
-        .Canvas.CurrentY = Y
+        .Canvas.CurrentY = y
         
         Dim S As String
-        S = CStr(CalDay.Day) & " " & VbWeekDay_ToStr(wd, vbSunday, True)
+        S = CStr(CalDay.Day) & " " & MTime.Weekday_ToStr(wd, vbSunday, True)
         If CalDay.FestivalIndex Then
             S = S & " " & MDECalendar.ELegalFestivals_ToStr(CalDay.FestivalIndex)
         Else
@@ -543,7 +543,7 @@ Public Sub CalendarView_DrawDay(this As CalendarView, CalDay As CalendarDay)
         .Canvas.Print S
         
         .Canvas.CurrentX = X
-        .Canvas.CurrentY = Y
+        .Canvas.CurrentY = y
         .Canvas.ForeColor = fc
     End With
 'Catch:
